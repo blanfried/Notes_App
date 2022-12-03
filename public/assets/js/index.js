@@ -97,3 +97,24 @@ const show = (elem) => {
               console.log(err, "error in index.js deleting note");
             }
           };
+
+          // Sets the activeNote and displays it
+const handleNoteView = (e) => {
+      e.preventDefault();
+      activeNote.id = JSON.parse(e.target.parentElement.getAttribute("data-note"));
+      renderActiveNote();
+    };
+    
+    // Sets the activeNote to and empty object and allows the user to enter a new note
+    const handleNewNoteView = (e) => {
+      activeNote = {};
+      renderActiveNote();
+    };
+    
+    const handleRenderSaveBtn = () => {
+      if (!noteTitle.value.trim() || !noteText.value.trim()) {
+        hide(saveNoteBtn);
+      } else {
+        show(saveNoteBtn);
+      }
+    };
