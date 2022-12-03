@@ -50,3 +50,50 @@ const show = (elem) => {
         },
         body: id,
       });
+
+      const renderActiveNote = () => {
+            hide(saveNoteBtn);
+          
+            if (activeNote.id) {
+              noteTitle.setAttribute("readonly", true);
+              noteText.setAttribute("readonly", true);
+              noteTitle.value = activeNote.id.title;
+              noteText.value = activeNote.id.text;
+            } else {
+              noteTitle.removeAttribute("readonly");
+              noteText.removeAttribute("readonly");
+              noteTitle.value = "";
+              noteText.value = "";
+            }
+          };
+          
+          const handleNoteSave = () => {
+            const newNote = {
+              title: noteTitle.value,
+              text: noteText.value,
+            };
+            saveNote(newNote).then(() => {
+              getAndRenderNotes();
+              renderActiveNote();
+            });
+          };
+          
+          // Delete the clicked note
+          const handleNoteDelete = (e) => {
+            // Prevents the click listener for the list from being called when the button inside of it is clicked
+            e.stopPropagation();
+          
+            const note = e.target;
+            const noteId = note.parentElement.getAttribute("data-note");
+          
+            if (activeNote.id === noteId) {
+              activeNote = {};
+            }
+          
+            try {
+              deleteNote(noteId);
+              getAndRenderNotes();
+            } catch (err) {
+              console.log(err, "error in index.js deleting note");
+            }
+          };
