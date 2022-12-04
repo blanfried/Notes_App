@@ -120,7 +120,7 @@ const show = (elem) => {
     };
 
     // Render the list of note titles
-const renderNoteList = async (notes) => {
+    const renderNoteList = async (notes) => {
       let jsonNotes = await notes.json();
       if (window.location.pathname === "/notes") {
         noteList.forEach((el) => (el.innerHTML = ""));
@@ -183,4 +183,4 @@ const renderNoteList = async (notes) => {
       noteText.addEventListener("keyup", handleRenderSaveBtn);
     }
     
-    getAndRenderNotes();
+    getAndRenderNotes();      
